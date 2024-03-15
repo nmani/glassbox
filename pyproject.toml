@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "glassbox"
+version = "0.0.1a"
+description = "An unofficial, opinionated API for Glassbox"
+authors = [
+	"Naveen Manivannan <naveen@manivannan.info>"
+	"DeAngelo Floyd <blasallister@gmail.com>"
+	]
+packages = [
+	{ include = "*", from = "src" } 
+]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/nmani/glassbox"
+repository = "https://github.com/nmani/glassbox"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pydantic = ">=2.6.0"
+requests = ">=2.31.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+backend-path = ["src"]

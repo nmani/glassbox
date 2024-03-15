@@ -1,12 +1,49 @@
-from typing import List
+from datetime import datetime, timedelta, UTC
+from typing import Any, Annotated, List, Dict, TypeVar, Optional, Union
 from pydantic import (
+    Field,
+    AnyUrl,
     BaseModel,
+    IPvAnyAddress,
+    PastDatetime,
     RootModel,
+    UrlConstraints,
     ValidationError,
     ValidationInfo,
-    field_validator,
-    IPvAnyAddress
+    field_validator
 )
+
+# need to put you in utils later...
+def _default_searchts(hours_back: int = 168):
+    return datetime.now(UTC) - timedelta(hours=hours_back)
+
+
+class SessionDetail(BaseModel):
+    sessionguid: str
+    mergeSessions: bool = False
+    startsTime: PastDatetime = Field(default_factory=_default_searchts)
+
+# Add logic for queries later?
+class SessionsSearch(BaseModel):
+    sessionguid: Union[str, List[str], None] = None
+    limit: Annotated[int, Field(strict=True, gt=0, le=5000)] = 100
+    starts: PastDatetime = Field(default_factory=_default_searchts)
+    endts: PastDatetime = Field(default_factory=lambda: datetime.now(UTC))
+
+class Credentials(BaseModel):
+    username: str
+    password: str
+
+class Config(BaseModel):
+    GLASSBOX_CREDS: Credentials
+    GLASSBOX_BASEURL: Annotated[AnyUrl, UrlConstraints(
+        max_length=300, allowed_schemes=["http", "https"], host_required=True
+    )]
+
+    @field_validator("GLASSBOX_BASEURL")
+    @classmethod
+    def _chk_baseurl(cls, v: str, info: ValidationInfo):
+        pass
 
 class HTTPStatusCode(BaseModel):
     code: int
@@ -42,11 +79,11 @@ class GBFullSession(BaseModel):
     userAgent: str
     userNames: str
     appIds: List[int]
-    sessionTags: str #Specific to the org/ap/app. Fix to be generic
+    sessionTags: Any #Specific to the org/ap/app. Fix to be generic?
     sessionCurrentDimensions: str #Fix to dict()
     avgDownloadTime: int
     avgResponseSize: int
-    sessionStartTimeTS: int
-    sessionEndTimeTS: int
+    sessionStartTimeTS: PastDatetime
+    sessionEndTimeTS: PastDatetime
     numOfPages: int
     queryId: str
