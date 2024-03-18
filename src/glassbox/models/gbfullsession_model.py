@@ -1,7 +1,7 @@
 from typing import Any, Annotated, List, TypeVar, Optional, Union
 from clickstream_model import ClickStream
 from httpstatuscode_model import HTTPStatusCode
-from sessionsearch_model import SessionsSearch
+
 from pydantic import BaseModel, IPvAnyAddress, PastDatetime, field_validator, create_model
 
 import logging.config
@@ -32,8 +32,8 @@ class GBFullSession(BaseModel):
     sessionCurrentDimensions:  Optional[create_model('sessionCurrentDimensions',type=(str, ...))] #need to ask if i need to make a python file that handles the dict
     avgDownloadTime: int
     avgResponseSize: int
-    sessionStartTimeTS: SessionsSearch.starts
-    sessionEndTimeTS: SessionsSearch.endts
+    sessionStartTimeTS: PastDatetime
+    sessionEndTimeTS: PastDatetime
     numOfPages: int
     queryId: str
 
