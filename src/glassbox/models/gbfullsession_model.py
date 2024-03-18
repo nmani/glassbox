@@ -1,14 +1,8 @@
 from typing import Any, Annotated, List, TypeVar, Optional, Union
-
 from clickstream_model import ClickStream
 from httpstatuscode_model import HTTPStatusCode
 from sessionsearch_model import SessionsSearch
-
-from pydantic import (
-    BaseModel,
-    IPvAnyAddress,
-    PastDatetime,
-    field_validator,create_model)
+from pydantic import BaseModel, IPvAnyAddress, PastDatetime, field_validator, create_model
 
 import logging.config
 import yaml
