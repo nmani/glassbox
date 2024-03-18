@@ -29,7 +29,7 @@ class GBFullSession(BaseModel):
     userNames: str
     appIds: List[int]
     sessionTags: Any #Specific to the org/ap/app. Fix to be generic?
-    sessionCurrentDimensions:  Optional[create_model(sessionCurrentDimensions,type=(str, ...))] 
+    sessionCurrentDimensions:  Optional[create_model('sessionCurrentDimensions',type=(str, ...))] #need to ask if i need to make a python file that handles the dict
     avgDownloadTime: int
     avgResponseSize: int
     sessionStartTimeTS: SessionsSearch.starts

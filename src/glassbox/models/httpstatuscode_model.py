@@ -1,8 +1,4 @@
-
-from pydantic import (
-    BaseModel,
-    field_validator)
-
+from pydantic import BaseModel, field_validator
 import logging.config
 import yaml
 
