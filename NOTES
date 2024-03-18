@@ -1,0 +1,11 @@
+ENDPOINTS THAT MATTER?
+
+webinterface/api/v2/application:
+webinterface/api/v2/fields:
+webinterface/api/v1/entites/*:
+pages?allData=true # Gets AppIDs for apges
+actions?allData=true # list of actions
+endpoints?allData=true
+events?allData=true
+attributes?allData=true
+client-flows?allData=true

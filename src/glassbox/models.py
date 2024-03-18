@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, UTC
-from typing import Any, Annotated, List, Dict, TypeVar, Optional, Union
+from typing import Any, Annotated, List, Dict, TypeVar, Union
 from pydantic import (
     Field,
     AnyUrl,
@@ -80,10 +80,11 @@ class GBFullSession(BaseModel):
     userNames: str
     appIds: List[int]
     sessionTags: Any #Specific to the org/ap/app. Fix to be generic?
-    sessionCurrentDimensions: str #Fix to dict()
+    sessionCurrentDimensions: Dict[str, str] | None = None #Fix to dict()
     avgDownloadTime: int
     avgResponseSize: int
     sessionStartTimeTS: PastDatetime
     sessionEndTimeTS: PastDatetime
     numOfPages: int
     queryId: str
+

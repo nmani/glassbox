@@ -1,4 +1,6 @@
+import code
 from logging import Logger
+import logging
 from typing import Optional, Dict, Tuple, Any
 
 from urllib.parse import urlencode
@@ -26,7 +28,7 @@ class HTTPClient(object):
         allow_redirects: bool = False
     ) -> None: # fix later
         raise SystemError("This is an abstract class.")
-    
+
     def debug_request(self, kwargs: Dict[str, Any]) -> None:
         self.logger.debug("### START GLASSBOX API REQUEST ###")
         self.logger.debug(f'{kwargs["method"]}: {kwargs["url"]}')
