@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, UTC
 from typing import Any, Annotated, List, Dict, Union
-import re
+
 
 from pydantic import (
     BaseModel,
@@ -41,5 +41,3 @@ class SessionsSearch(BaseModel):
             logger.error(f"Value is greater than 5000: {v}")
             raise ValueError("Value is greater than 5000")
         return v
-    
-    @f
