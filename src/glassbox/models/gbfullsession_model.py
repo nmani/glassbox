@@ -20,8 +20,8 @@ logger = logging.getLogger(__name__)
 
 class GBFullSession(BaseModel):
     session_id: str
-    resultCode: int 
-    ClickStream: List[ClickStream]
+    resultCode: int
+    clickStream: List[ClickStream]
     httpStatusCodes: List[HTTPStatusCode]
     clientIPs: List[IPvAnyAddress]
     serverIPs: List[IPvAnyAddress]
