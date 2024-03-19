@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, UTC
-from typing import Any, Annotated, List, Dict, TypeVar, Union
+from typing import Any, Annotated, List, Dict, TypeVar, Optional, Union
+import re
 from pydantic import (
     Field,
     AnyUrl,
@@ -34,6 +35,15 @@ class Credentials(BaseModel):
     username: str
     password: str
 
+    @field_validator('password')
+    @classmethod
+    def password_validator(cls,v:str):
+        password_regex = "((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})"
+        if not re.match(password_regex, v):
+            raise ValueError("Password must be 8-64 characters and contain at least one number, one uppercase letter, one lowercase letter, and one special character")
+        return v    
+    
+
 class Config(BaseModel):
     GLASSBOX_CREDS: Credentials
     GLASSBOX_BASEURL: Annotated[AnyUrl, UrlConstraints(
@@ -42,7 +52,7 @@ class Config(BaseModel):
 
     @field_validator("GLASSBOX_BASEURL")
     @classmethod
-    def _chk_baseurl(cls, v: str, info: ValidationInfo):
+    def _chk_baseurl(cls, v: str, info: ValidationError):
         pass
 
 class HTTPStatusCode(BaseModel):
@@ -88,3 +98,12 @@ class GBFullSession(BaseModel):
     numOfPages: int
     queryId: str
 
+    @field_validator('resultCode')
+    @classmethod
+    def validate_resultcode(cls, v:int):
+        if v != 0:
+            raise ValueError("Result code is not 0")
+        elif v <= 0:
+            raise ValueError("Result code is not a positive integer")
+        return v
+ 
