@@ -90,7 +90,7 @@ class GBFullSession(BaseModel):
     userNames: str
     appIds: List[int]
     sessionTags: Any #Specific to the org/ap/app. Fix to be generic?
-    sessionCurrentDimensions: Dict[str] #Fix to dict()
+    sessionCurrentDimensions: Dict[str, str] | None = None #Fix to dict()
     avgDownloadTime: int
     avgResponseSize: int
     sessionStartTimeTS: PastDatetime
@@ -106,6 +106,4 @@ class GBFullSession(BaseModel):
         elif v <= 0:
             raise ValueError("Result code is not a positive integer")
         return v
-    
-    
-    
+ 

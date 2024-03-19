@@ -18,7 +18,7 @@ repository = "https://github.com/nmani/glassbox"
 python = "^3.12"
 pydantic = ">=2.6.0"
 requests = ">=2.31.0"
-pyyaml = "^6.0.1"
+pyyaml = ">=6.0.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
